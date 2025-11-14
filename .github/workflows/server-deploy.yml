@@ -17,9 +17,13 @@ jobs:
 
       - name: Build Server (Swift 5.9 container)
         run: |
+          mkdir -p /tmp/.swiftpm-cache
           docker run --rm \
             --user "$(id -u)":"$(id -g)" \
+            -e SWIFTPM_CACHE_PATH=/tmp/.swiftpm-cache \
+            -e TOOLCHAINS=swift \
             -v "$GITHUB_WORKSPACE":/workspace \
+            -v /tmp/.swiftpm-cache:/tmp/.swiftpm-cache \
             -w /workspace \
             swift:5.9 \
             swift build --package-path Server
