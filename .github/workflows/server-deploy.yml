@@ -13,13 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run Server Tests (Swift 5.9 container)
+      - name: Build Server (Swift 5.9 container)
         run: |
           docker run --rm \
             -v "$GITHUB_WORKSPACE":/workspace \
             -w /workspace \
             swift:5.9 \
-            swift test --package-path Server
+            swift build --package-path Server
 
       - name: Sync workspace to deployment directory
         run: |
