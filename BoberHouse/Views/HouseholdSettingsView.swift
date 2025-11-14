@@ -8,7 +8,7 @@ struct HouseholdSettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Household Members") {
+                Section("Members") {
                     ForEach(store.members) { member in
                         Button {
                             editingMember = member

@@ -6,15 +6,18 @@ struct DashboardView: View {
     @State private var showingTemplateSheet = false
     @State private var selectedOccurrence: TaskOccurrence?
 
-    private var dueSoonOccurrences: [TaskOccurrence] {
-        let window = Calendar.current.date(byAdding: .day, value: 3, to: .now) ?? .now
+    private var todayOccurrences: [TaskOccurrence] {
+        let calendar = Calendar.current
         return store.occurrences
-            .filter { $0.status == .pending && $0.dueDate <= window }
+            .filter { occurrence in
+                occurrence.status == .pending &&
+                calendar.isDate(occurrence.dueDate, inSameDayAs: Date())
+            }
             .sorted { $0.dueDate < $1.dueDate }
     }
 
     private var nextOccurrence: TaskOccurrence? {
-        dueSoonOccurrences.first
+        todayOccurrences.first
     }
 
     var body: some View {
@@ -23,10 +26,10 @@ struct DashboardView: View {
                 LazyVStack(spacing: 20, pinnedViews: []) {
                     headerCard
 
-                    if dueSoonOccurrences.isEmpty {
+                    if todayOccurrences.isEmpty {
                         emptyState
                     } else {
-                        ForEach(dueSoonOccurrences) { occurrence in
+                        ForEach(todayOccurrences) { occurrence in
                             occurrenceCard(for: occurrence)
                                 .onTapGesture {
                                     selectedOccurrence = occurrence
@@ -71,9 +74,14 @@ struct DashboardView: View {
 
     private var headerCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Next up")
-                .cardHeaderStyle()
-                .padding(.bottom, 8)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Today")
+                    .cardHeaderStyle()
+                Text(Date().formatted(.dateTime.weekday(.wide).day().month()))
+                    .font(.caption)
+                    .foregroundStyle(cardSecondary)
+            }
+            .padding(.bottom, 8)
 
             if let nextOccurrence,
                let template = store.templatesByID[nextOccurrence.templateID] {
@@ -106,7 +114,7 @@ struct DashboardView: View {
                     }
                 }
             } else {
-                Text("No tasks in the next few days. Enjoy the calm!")
+                Text("Nothing due today. Enjoy the calm!")
                     .foregroundStyle(cardSecondary)
             }
         }
@@ -179,10 +187,10 @@ struct DashboardView: View {
             Image(systemName: "calendar.badge.clock")
                 .font(.system(size: 48))
                 .foregroundStyle(cardSecondary)
-            Text("No tasks due soon")
-                .font(.headline)
-                .foregroundStyle(cardPrimary)
-            Text("Add a template to get started and the app will schedule the rest.")
+                Text("No tasks due today")
+                    .font(.headline)
+                    .foregroundStyle(cardPrimary)
+            Text("Add a template or adjust schedules to see upcoming tasks here.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(cardSecondary)
         }

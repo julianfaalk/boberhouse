@@ -4,16 +4,17 @@ struct TaskListView: View {
     @EnvironmentObject private var store: HouseholdStore
     @State private var showingEditor = false
     @State private var editingTemplate: TaskTemplate?
+    @StateObject private var viewModel = TaskTemplateListViewModel()
 
     var body: some View {
         NavigationStack {
             List {
                 Section("Active Templates") {
-                    ForEach(store.templates) { template in
+                    ForEach(viewModel.rows) { row in
                         Button {
-                            editingTemplate = template
+                            editingTemplate = store.templates.first(where: { $0.id == row.id })
                         } label: {
-                            templateRow(template)
+                            templateRow(row)
                                 .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
@@ -44,30 +45,37 @@ struct TaskListView: View {
                 TaskTemplateEditorView(template: template)
             }
         }
+        .onAppear(perform: rebuildRows)
+        .onChange(of: store.templates) { _ in rebuildRows() }
+        .onDisappear(perform: viewModel.cancelWork)
     }
 
-    private func templateRow(_ template: TaskTemplate) -> some View {
+    private func templateRow(_ row: TaskTemplateListViewModel.Row) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(template.title)
+            Text(row.title)
                 .font(.headline)
 
-            if let details = template.details, !details.isEmpty {
+            if let details = row.details, !details.isEmpty {
                 Text(details)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
 
-            Text("Every \(template.cadenceValue) \(template.cadenceUnit.localizedLabel.lowercased())")
+            Text(row.cadenceDescription)
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            if template.leadTimeHours > 0 {
-                Text("Remind \(template.leadTimeHours)h before")
+            if let lead = row.leadTimeDescription {
+                Text(lead)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
         }
         .padding(.vertical, 4)
+    }
+
+    private func rebuildRows() {
+        viewModel.rebuild(templates: store.templates)
     }
 }
 

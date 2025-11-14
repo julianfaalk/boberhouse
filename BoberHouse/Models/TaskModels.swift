@@ -1,7 +1,7 @@
 import Foundation
 import SwiftData
 
-enum CadenceUnit: String, Codable, CaseIterable {
+enum CadenceUnit: String, Codable, CaseIterable, Sendable {
     case days
     case weeks
     case months
@@ -15,7 +15,7 @@ enum CadenceUnit: String, Codable, CaseIterable {
     }
 }
 
-enum TaskOccurrenceStatus: String, Codable, CaseIterable {
+enum TaskOccurrenceStatus: String, Codable, CaseIterable, Sendable {
     case pending
     case skipped
     case completed

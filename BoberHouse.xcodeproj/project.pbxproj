@@ -34,6 +34,8 @@
 		2F9A00142D2A00000075C21A /* MemberEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A00132D2A00000075C21A /* MemberEditorView.swift */; };
 		2F9A00162D2A00000075C21A /* HouseholdSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A00152D2A00000075C21A /* HouseholdSettingsView.swift */; };
 		2F9A00182D2A00000075C21A /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9A00172D2A00000075C21A /* Color+Hex.swift */; };
+		2FF000112D4A00000075C21A /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF000102D4A00000075C21A /* TimelineViewModel.swift */; };
+		2FF000132D4A00000075C21A /* TaskTemplateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF000122D4A00000075C21A /* TaskTemplateListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		2F9A00132D2A00000075C21A /* MemberEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberEditorView.swift; sourceTree = "<group>"; };
 		2F9A00152D2A00000075C21A /* HouseholdSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdSettingsView.swift; sourceTree = "<group>"; };
 		2F9A00172D2A00000075C21A /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		2FF000102D4A00000075C21A /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
+		2FF000122D4A00000075C21A /* TaskTemplateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTemplateListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				2F1E4AC92C1B47F60075C21A /* HouseholdStore.swift */,
+				2FF000102D4A00000075C21A /* TimelineViewModel.swift */,
+				2FF000122D4A00000075C21A /* TaskTemplateListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -258,6 +264,8 @@
 				2F1E4AC22C1B448D0075C21A /* TaskListView.swift in Sources */,
 				2F1E4AC62C1B46D70075C21A /* TimelineView.swift in Sources */,
 				2F1E4ACA2C1B47F60075C21A /* HouseholdStore.swift in Sources */,
+				2FF000132D4A00000075C21A /* TaskTemplateListViewModel.swift in Sources */,
+				2FF000112D4A00000075C21A /* TimelineViewModel.swift in Sources */,
 				2F1E4ACE2C1B496B0075C21A /* AppTheme.swift in Sources */,
 				2F1E4AD22C1B4B420075C21A /* PreviewData.swift in Sources */,
 				2F1E4AD62C1B4C8A0075C21A /* SyncService.swift in Sources */,

@@ -1,4 +1,5 @@
 import Fluent
+import Foundation
 
 final class ServerRevision: Model {
     static let schema = "server_revisions"
