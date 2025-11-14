@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  boberhouse:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9090:8080"
+    env_file:
+      - docker/app.env
+    volumes:
+      - boberhouse_data:/data
+      - ./docker/secrets:/secrets:ro
+    restart: unless-stopped
+
+volumes:
+  boberhouse_data:
