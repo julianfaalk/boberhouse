@@ -36,6 +36,6 @@ jobs:
 
       - name: Build and restart Docker stack
         run: |
-          cd /opt/apps/boberhouse
+          cd /opt/apps/boberhouse/Server
           docker compose build boberhouse
           docker compose up -d boberhouse

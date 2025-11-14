@@ -105,5 +105,5 @@ sudo systemctl start boberhouse.service
 ## GitHub Actions Deployment
 - Workflow file: `.github/workflows/server-deploy.yml`.
 - A self-hosted runner lives on the VPS under `/opt/apps/boberhouse/actions-runner`; start it via `./svc.sh start` (or `./run.sh` for ad-hoc).
-- Jobs use `runs-on: self-hosted`, build via `docker run --rm --user "$(id -u):$(id -g)" swift:5.9 swift build --package-path Server`, rsync the repo into `/opt/apps/boberhouse`, then execute `docker compose build boberhouse && docker compose up -d boberhouse`. The checkout step runs with `clean: false` because Docker creates root-owned `.build` artifacts that the runner can’t delete before each job.
+- Jobs use `runs-on: self-hosted`, build via `docker run --rm --user "$(id -u):$(id -g)" swift:5.9 swift build --package-path Server`, rsync the repo into `/opt/apps/boberhouse`, then execute `docker compose build boberhouse && docker compose up -d boberhouse` from `/opt/apps/boberhouse/Server`. The checkout step runs with `clean: false` because Docker creates root-owned `.build` artifacts that the runner can’t delete before each job.
 - No registry or SSH secrets are required, but the runner user must belong to the `docker` group and have access to the repo directory.
