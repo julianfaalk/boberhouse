@@ -17,13 +17,15 @@ jobs:
 
       - name: Build Server (Swift 5.9 container)
         run: |
-          mkdir -p /tmp/.swiftpm-cache
+          mkdir -p /tmp/.swiftpm-cache /tmp/.clang-cache
           docker run --rm \
             --user "$(id -u)":"$(id -g)" \
             -e SWIFTPM_CACHE_PATH=/tmp/.swiftpm-cache \
             -e TOOLCHAINS=swift \
+            -e HOME=/tmp \
             -v "$GITHUB_WORKSPACE":/workspace \
             -v /tmp/.swiftpm-cache:/tmp/.swiftpm-cache \
+            -v /tmp/.clang-cache:/tmp/.cache \
             -w /workspace \
             swift:5.9 \
             swift build --package-path Server
