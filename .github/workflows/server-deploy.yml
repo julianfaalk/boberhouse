@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          clean: false
+          clean: false  # keep Docker-owned .build files; rsync handles cleanup later
 
       - name: Build Server (Swift 5.9 container)
         run: |
