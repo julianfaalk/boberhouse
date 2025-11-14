@@ -16,6 +16,7 @@ jobs:
       - name: Build Server (Swift 5.9 container)
         run: |
           docker run --rm \
+            --user "$(id -u)":"$(id -g)" \
             -v "$GITHUB_WORKSPACE":/workspace \
             -w /workspace \
             swift:5.9 \
