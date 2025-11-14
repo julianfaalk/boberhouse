@@ -1,0 +1,25 @@
+# macOS cruft
+.DS_Store
+
+# Swift/Xcode build output
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Swift Package Manager
+.build/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# Server artifacts
+Server/.env
+Server/boberhouse.sqlite
+Server/docker/secrets/*
+!Server/docker/secrets/.gitkeep
+
+# Security-sensitive files
+*.p8
+*.pem
+*.key
+
+# Misc
+*.log
