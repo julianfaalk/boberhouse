@@ -105,5 +105,5 @@ sudo systemctl start boberhouse.service
 ## GitHub Actions Deployment
 - Workflow file: `.github/workflows/server-deploy.yml`.
 - A self-hosted runner lives on the VPS under `/opt/apps/boberhouse/actions-runner`; start it via `./svc.sh start` (or `./run.sh` for ad-hoc).
-- Jobs use `runs-on: self-hosted`, run `swift test --package-path Server`, then execute `docker compose build boberhouse && docker compose up -d boberhouse` inside `/opt/apps/boberhouse`.
+- Jobs use `runs-on: self-hosted`, run tests via `docker run --rm swift:5.9 swift test --package-path Server`, rsync the repo into `/opt/apps/boberhouse`, then execute `docker compose build boberhouse && docker compose up -d boberhouse`.
 - No registry or SSH secrets are required, but the runner user must belong to the `docker` group and have access to the repo directory.

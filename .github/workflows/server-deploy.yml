@@ -13,11 +13,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Ensure Swift toolchain
-        run: swift --version
+      - name: Run Server Tests (Swift 5.9 container)
+        run: |
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE":/workspace \
+            -w /workspace \
+            swift:5.9 \
+            swift test --package-path Server
 
-      - name: Run Server Tests
-        run: swift test --package-path Server
+      - name: Sync workspace to deployment directory
+        run: |
+          rsync -a --delete --exclude '.git/' --exclude 'actions-runner/' "$GITHUB_WORKSPACE"/ /opt/apps/boberhouse/
 
       - name: Build and restart Docker stack
         run: |
