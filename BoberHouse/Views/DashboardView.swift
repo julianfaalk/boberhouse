@@ -42,6 +42,10 @@ struct DashboardView: View {
                 .padding(.top, 32)
                 .padding(.bottom, 48)
             }
+            .refreshable {
+                await store.refreshSnapshots()
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {}
+            }
             .safeAreaPadding(.horizontal, 0)
             .background(Color.clear)
             .navigationTitle("Today")

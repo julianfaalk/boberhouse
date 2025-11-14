@@ -9,6 +9,7 @@ final class HouseholdStore: ObservableObject {
     @Published private(set) var completions: [CompletionEvent] = []
     @Published var selectedDate: Date = .now
     @Published private(set) var isSyncing: Bool = false
+    @Published private(set) var dataVersion: Int = 0
 
     private var modelContext: ModelContext?
     private let scheduler = SchedulerService()
@@ -67,6 +68,7 @@ final class HouseholdStore: ObservableObject {
             assertionFailure("Fetch failed: \(error)")
         }
         await scheduleReminders()
+        dataVersion &+= 1
     }
 
     func addTemplate(

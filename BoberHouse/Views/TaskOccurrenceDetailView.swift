@@ -25,6 +25,13 @@ struct TaskOccurrenceDetailView: View {
                     if let template = store.templatesByID[occurrence.templateID] {
                         Text(template.title)
                             .font(.headline)
+
+                        if let details = template.details, !details.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            Text(details)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .padding(.top, 2)
+                        }
                     }
 
                     LabeledContent("Due") {

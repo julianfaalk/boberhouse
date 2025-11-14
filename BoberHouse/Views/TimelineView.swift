@@ -21,6 +21,10 @@ struct TimelineView: View {
                 .padding(.horizontal, 22)
                 .padding(.vertical, 32)
             }
+            .refreshable {
+                await store.refreshSnapshots()
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {}
+            }
             .navigationTitle("Timeline")
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(.clear, for: .navigationBar)
@@ -38,9 +42,7 @@ struct TimelineView: View {
         }
         .onDisappear(perform: viewModel.cancelWork)
         .onAppear(perform: rebuildTimeline)
-        .onChange(of: store.occurrences) { _ in rebuildTimeline() }
-        .onChange(of: store.templates) { _ in rebuildTimeline() }
-        .onChange(of: store.members) { _ in rebuildTimeline() }
+        .onChange(of: store.dataVersion) { _ in rebuildTimeline() }
         .onChange(of: showCompleted) { _ in rebuildTimeline() }
     }
 

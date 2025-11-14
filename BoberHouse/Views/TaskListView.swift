@@ -44,6 +44,11 @@ struct TaskListView: View {
             .sheet(item: $editingTemplate) { template in
                 TaskTemplateEditorView(template: template)
             }
+            .refreshable {
+                await store.refreshSnapshots()
+                rebuildRows()
+                withAnimation(.spring(response: 0.45, dampingFraction: 0.8)) {}
+            }
         }
         .onAppear(perform: rebuildRows)
         .onChange(of: store.templates) { _ in rebuildRows() }
